@@ -1,0 +1,312 @@
+<html>
+    <head>
+        <title>wp2018 Personal Page</title>
+        
+					<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>  
+					<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+					<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+         			
+                    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                    
+                    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+        			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+                	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+					
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+				<script>
+					var open=false;
+					var img_list_can_show=true;
+					
+					function check_rwd(){
+						if(img_list_can_show){
+							$(".img_list").css({"visibility":"visible"})
+
+							// 注意，img_list2 可能需要關起來
+							if(! open){
+								$("#img_list2").css({"visibility":"hidden"})
+							}
+						}else{
+							$(".img_list").css({"visibility":"hidden"})
+						}
+					}
+					$(function(){
+						if($(window).width() <1000){
+							img_list_can_show=false;
+							check_rwd()
+						}else{
+							img_list_can_show=true;
+							check_rwd()
+						}
+						$(".myblock").each(function(name,val){
+							
+							var s=$(document).scrollTop();
+							var f=$(window).height(); 
+							var h=$(this).height();
+							var to_top=$(this).offset().top;
+							var canshow=false;
+							
+							
+							if( (s+f)>(to_top)){
+								
+								$(this).css({visibility:"visible", opacity: 0.0})
+											.animate({opacity: 0.2},120)
+											.animate({opacity: 0.4},120)
+											.animate({opacity: 0.6},120)
+											.animate({opacity: 0.8},120)
+											.animate({opacity: 1.0},120)
+
+											
+								$(this).css("visibility","visible")
+								$(this).prop("now_can_see",true);
+							}else{
+								$(this).css("visibility","hidden")
+								$(this).prop("now_can_see",false);
+							}
+						})
+						
+						 $(document).scroll(function() {
+							var s=$(document).scrollTop();
+							var f=$(window).height(); 
+
+							
+							$(".myblock").each(function(name,val){
+
+								
+								var h=$(this).height();
+								var to_top=$(this).offset().top;
+								var canshow=false;
+								
+								var all_top=false;
+								var all_bottom=false;
+
+								if((s+f)>(to_top) ){
+									all_bottom=false;
+								}else{
+									all_bottom=true;
+								}
+
+								if(s>(to_top+h)){
+									all_top=true;
+								}else{
+									all_top=false;
+								}
+
+								var now_can_see=$(this).prop("now_can_see")
+								if(   (!all_top) &&  (!now_can_see) && (!all_bottom) ){ 
+										$(this).css({visibility:"visible", opacity: 0.0})
+											.animate({opacity: 0.2},120)
+											.animate({opacity: 0.4},120)
+											.animate({opacity: 0.6},120)
+											.animate({opacity: 0.8},120)
+											.animate({opacity: 1.0},120)
+
+										$(this).prop("now_can_see",true)
+								}else{
+									if(all_bottom || all_top){
+										$(this).css({visibility:"hidden", opacity: 0.0})
+										$(this).prop("now_can_see",false)
+									}
+								}
+							})
+						 })
+						 
+						 $("#test").click(function(){
+							if(img_list_can_show){
+
+							 if(open){
+								$("#img_list2").css({visibility:"visible", opacity: 1.0})
+											.animate({opacity: 0.8},120)
+											.animate({opacity: 0.6},120)
+											.animate({opacity: 0.4},120)
+											.animate({opacity: 0.2},120)
+											.animate({opacity: 0.0},120)
+								 open=false;
+								 $("#pl_img_list").css({"max-height":"656px"})
+								 			.animate({"max-height":"614px"},120)
+											.animate({"max-height":"572px"},120)
+											.animate({"max-height":"530px"},120)
+											.animate({"max-height":"488px"},120)
+											.animate({"max-height":"446px"},120)
+								 //alert("ff : "+$("#pl_img_list").height());
+							 }else{
+								$("#img_list2").css({visibility:"visible", opacity: 0.0})
+											.animate({opacity: 0.1},120)
+											.animate({opacity: 0.25},120)
+											.animate({opacity: 0.4},120)
+											.animate({opacity: 0.55},120)
+											.animate({opacity: 0.7},120)
+											.animate({opacity: 0.85},120)
+											.animate({opacity: 1.0},120)
+								
+								 open=true;
+								 $("#pl_img_list").css({"max-height":"446px"})
+								 			.animate({"max-height":"488px"},100)
+											.animate({"max-height":"530px"},100)
+											.animate({"max-height":"572px"},100)
+											.animate({"max-height":"614px"},100)
+											.animate({"max-height":"656px"},100)
+							 }
+
+							}
+						 })
+
+						 $(window).resize(function(){
+							 if($(window).width() <1000){
+								
+								img_list_can_show=false;
+								check_rwd()
+							 }else{
+								
+								img_list_can_show=true;
+								check_rwd()
+							 }
+						 })
+						 
+					})					
+
+
+				</script>
+
+		<style>
+			#pl_img_list img{
+				height:200px;
+				width:200px;
+			}
+
+			.img_list img{
+				float:"left";
+			}
+		</style>
+    </head>
+    <body>
+        
+        <div style="background-image: url('banner.jpg');min-height:600px;background-position: center center;background-size: cover; " class="myblock ui basic vertical segment header">
+            <div class="container">
+                <div class="ui basic very padded left aligned segment very padded">
+					<h1 style="color: white;font-size: 72px;text-shadow: 0 3px 7px rgba(0,0,0,.5);">Web Programming</h1>
+					<br>
+					<h2 style="color: white;font-size: 50px;text-shadow: 0 3px 7px rgba(0,0,0,.5);">Make Web Application Revolutionary</h2>
+				</div>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div class="myblock ui container">
+			<div class="ui stackable two column grid">
+                <div class="column" style="min-height: 400px;position: relative;bottom:30px;">
+		    		<div class="ui basic segment" style="display: inline-block;position:relative;top: 20%;left: 10%;background-color: rgb(0,127,255);width: 70%;height: 200px;"></div>
+		       		<div class="ui basic very padded segment" style="display: inline-block;border: solid 2px #2c272d; position: absolute; top: 13%; left: 17%;width: 70%; height: 60%">
+			        	<span class="ui huge header" style="font-size:40px;">Frontend Studio</span>
+						<br>
+			    		<p style="font-size:30px;">Lets coding your page !</p>
+					</div>
+		      	</div>
+                <div class="column">
+					<img class="ui fluid image" src="go.png" />
+				</div>
+			</div>
+		</div>
+
+		<div id="pl_img_list" class="myblock" style="background-color: rgb(125,125,255);max-height: 456px;" >
+			<div class="ui container">
+				<h1 style="color: white;font-size: 72px;text-shadow: 0 3px 7px rgba(0,0,0,.5);">Programming Language</h1>
+				<h2 style="color: white;font-size: 52px;text-shadow: 0 3px 7px rgba(0,0,0,.5);">
+					Not proficient , But Enjoy  
+					<a id="test">
+						<i class="red icon angle double down" style="font-size: 40px;color: rgb(255,255,255);"></i>
+					</a>
+				</h2>
+			</div>
+			
+			<br>
+			<div id="img_list1" class="img_list ui doubling five column grid ui container" style="visibility: visible;">
+				<div class="column">
+					<img class="ui medium bordered image" src="html5.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="css3.jpg" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="JavaScript.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="php7.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="nodejs.png" alt="vdrewvbr" />
+				</div>
+			</div>
+			<br>
+				 
+			<br>
+			<div id="img_list2" style="visibility: hidden;" class="img_list ui doubling five column grid ui container" >
+				<div class="column">
+					<img class="ui medium bordered image" src="C++.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="Java.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="Csharp.png" alt="vdrewvbr" />
+				</div>
+				
+				<div class="column">
+					<img class="ui medium bordered image" src="python.png" alt="vdrewvbr" />
+				</div>
+				<div class="column">
+					<img class="ui medium bordered image" src="SQL.png" alt="vdrewvbr" />
+				</div>
+			</div>
+			<br>
+			 	
+		</div>
+
+
+		<div class="myblock ui container">
+			<div class="ui basic center aligned segment">
+				<h1 style="font-size:50px;">At Your Service</h1>
+                <br><br>
+            </div>
+                
+
+			<div class="ui doubling four column grid">
+				<div class="column">
+				    <div class="ui basic center aligned segment">
+					    <i class="icon diamond" style="font-size: 40px"></i>
+					    <h2>Sturdy Templates</h2>
+					    <p>This templates are updated regularly so they dont break.</p>
+				    </div>
+			    </div>
+
+                <div class="column">
+				    <div class="ui basic center aligned segment">
+					    <i class="icon send" style="font-size: 40px"></i>
+					    <h2>Ready to Ship</h2>
+					    <p>You can use this theme as is, or you can make changes!</p>
+				    </div>
+			    </div>
+
+                <div class="column">
+				    <div class="ui basic center aligned segment">
+					    <i class="icon newspaper" style="font-size: 40px"></i>
+					    <h2>Up to Date</h2>
+					    <p>We update dependencies to keep things fresh.</p>
+				    </div>
+			    </div>
+
+                <div class="column">
+				    <div class="ui basic center aligned segment">
+					    <i class="icon heart" style="font-size: 40px"></i>
+					    <h2>Made with Love</h2>
+					    <p>You have to make your websites with love these days!</p>
+				    </div>
+			    </div>
+			</div>
+		</div>
+    </body>
+</html>
