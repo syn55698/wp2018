@@ -33,6 +33,14 @@
 							$(".img_list").css({"visibility":"hidden"})
 						}
 					}
+
+					function move_float_block(){
+						c=$(document).scrollTop();
+							
+						g=0
+						g=parseInt(c)+200
+						$("#float_block").animate({ top:( (     g    )+"px")},50) ;
+					}
 					$(function(){
 						if($(window).width() <1000){
 							img_list_can_show=false;
@@ -41,6 +49,10 @@
 							img_list_can_show=true;
 							check_rwd()
 						}
+
+						// 初始化飄移面板位置
+						move_float_block()
+
 						$(".myblock").each(function(name,val){
 							
 							var s=$(document).scrollTop();
@@ -112,11 +124,14 @@
 									}
 								}
 							})
+
+							move_float_block()
 						 })
 						 
 						 $("#test").click(function(){
+							
 							if(img_list_can_show){
-
+								
 							 if(open){
 								$("#img_list2").css({visibility:"visible", opacity: 1.0})
 											.animate({opacity: 0.8},120)
@@ -183,7 +198,12 @@
 		</style>
     </head>
     <body>
-        
+		
+        <div id="float_block" class="ui segment" style="position: absolute;width:25%;height: 300px;right: 20px;background-color: rgba(50,205,50,0.5);z-index: 2;color:rgb(220,20,60)">
+			
+			<h1> 動態網頁示範<br><br>漂浮面板<br><br>滑鼠滾輪拉動<br><br>漂回同一高度位置<br><br> </h1>
+		</div>
+		
         <div style="background-image: url('banner.jpg');min-height:600px;background-position: center center;background-size: cover; " class="myblock ui basic vertical segment header">
             <div class="container">
                 <div class="ui basic very padded left aligned segment very padded">
